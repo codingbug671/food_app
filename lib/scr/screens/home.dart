@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_foodapp/scr/helpers/screen_navigation.dart';
+import 'package:flutter_foodapp/scr/screens/bag.dart';
 import 'package:flutter_foodapp/scr/widgets/bottom_navigation_icons.dart';
 import 'package:flutter_foodapp/scr/widgets/categories.dart';
 import 'package:flutter_foodapp/scr/widgets/custom_text.dart';
@@ -221,10 +223,18 @@ class _HomeState extends State<Home> {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            BottomNavIcon("home.png", "Home"),
-            BottomNavIcon("target.png", "Near by"),
-            BottomNavIcon("shopping-bag.png", "Cart"),
-            BottomNavIcon("avatar.png", "Account"),
+            BottomNavIcon("home.png", "Home", () {
+              changeScreen(context, Home());
+            }),
+            BottomNavIcon("target.png", "Near by", () {
+              changeScreen(context, Home());
+            }),
+            BottomNavIcon("shopping-bag.png", "Cart", () {
+              changeScreen(context, ShoppingBag());
+            }),
+            BottomNavIcon("avatar.png", "Account", () {
+              changeScreen(context, Home());
+            }),
           ],
         ),
       ),
