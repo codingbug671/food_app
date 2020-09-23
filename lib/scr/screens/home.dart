@@ -5,7 +5,7 @@ import 'package:flutter_foodapp/scr/widgets/custom_text.dart';
 import 'package:flutter_foodapp/scr/widgets/featured_products.dart';
 import 'package:flutter_foodapp/scr/widgets/small_floating_button.dart';
 
-import '../common.dart';
+import '../helpers/common.dart';
 
 class Home extends StatefulWidget {
   @override
