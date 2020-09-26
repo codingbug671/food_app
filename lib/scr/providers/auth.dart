@@ -47,7 +47,7 @@ class AuthProvider with ChangeNotifier {
       notifyListeners();
       await _auth
           .createUserWithEmailAndPassword(
-              email: email.text, password: password.text)
+              email: email.text.trim(), password: password.text.trim())
           .then((user) {
         Map<String, dynamic> values = {
           "name": username.text,
@@ -80,7 +80,7 @@ class AuthProvider with ChangeNotifier {
 
   Future<void> _onStateChanged(FirebaseUser firebaseUser) async {
     if (user == null) {
-      _status = Status.Uninitialized;
+      _status = Status.Unauthenticated;
     } else {
       _user = firebaseUser;
       _status = Status.Authenticated;
