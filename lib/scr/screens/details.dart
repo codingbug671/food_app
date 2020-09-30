@@ -5,7 +5,7 @@ import 'package:flutter_foodapp/scr/models/products.dart';
 import 'package:flutter_foodapp/scr/widgets/custom_text.dart';
 
 class Details extends StatelessWidget {
-  final Product product;
+  final ProductModel product;
 
   const Details({@required this.product});
   @override
@@ -21,9 +21,9 @@ class Details extends StatelessWidget {
                   children: [
                     Carousel(
                         images: [
-                          AssetImage('images/${product.image}'),
-                          AssetImage('images/${product.image}'),
-                          AssetImage('images/${product.image}')
+                          NetworkImage(product.image),
+                          NetworkImage(product.image),
+                          NetworkImage(product.image)
                         ],
                         dotBgColor: white,
                         dotColor: grey,
@@ -109,7 +109,7 @@ class Details extends StatelessWidget {
                 weight: FontWeight.bold,
               ),
               CustomText(
-                text: "\$${product.price}",
+                text: "\$${product.price / 100}",
                 size: 20,
                 color: red,
                 weight: FontWeight.bold,
@@ -155,10 +155,7 @@ class Details extends StatelessWidget {
               ),
               Padding(
                 padding: const EdgeInsets.all(8.0),
-                child: CustomText(
-                    text:
-                        "Lorem ipsum dolor sit amet,consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
-                    size: 14),
+                child: CustomText(text: product.description, size: 14),
               )
             ],
           ),

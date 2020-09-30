@@ -9,13 +9,8 @@ class ShoppingBag extends StatefulWidget {
 }
 
 class _ShoppingBagState extends State<ShoppingBag> {
-  Product product = Product(
-      name: "Cereals",
-      image: "1.jpg",
-      price: 5.99,
-      rating: 4.2,
-      vendor: "GoodFood",
-      wishList: true);
+  ProductModel product;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(

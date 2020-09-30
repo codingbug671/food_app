@@ -6,7 +6,7 @@ import 'package:flutter_foodapp/scr/screens/register.dart';
 import 'package:flutter_foodapp/scr/widgets/custom_text.dart';
 import 'package:flutter_foodapp/scr/widgets/loading.dart';
 import 'package:provider/provider.dart';
-import 'package:flutter_foodapp/scr/providers/auth.dart';
+import 'package:flutter_foodapp/scr/providers/user.dart';
 
 class LoginScreen extends StatefulWidget {
   @override
@@ -17,7 +17,7 @@ class _LoginScreenState extends State<LoginScreen> {
   final _key = GlobalKey<ScaffoldState>();
   @override
   Widget build(BuildContext context) {
-    final authProvider = Provider.of<AuthProvider>(context);
+    final authProvider = Provider.of<UserProvider>(context);
     return Scaffold(
         key: _key,
         backgroundColor: white,
@@ -84,6 +84,7 @@ class _LoginScreenState extends State<LoginScreen> {
                             _key.currentState.showSnackBar(SnackBar(
                               content: Text("Login Failed"),
                             ));
+
                             return;
                           }
                           authProvider.CleanControllers();

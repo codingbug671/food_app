@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_foodapp/scr/helpers/common.dart';
 import 'package:flutter_foodapp/scr/helpers/screen_navigation.dart';
-import 'package:flutter_foodapp/scr/providers/auth.dart';
+import 'package:flutter_foodapp/scr/providers/user.dart';
 import 'package:flutter_foodapp/scr/screens/home.dart';
 import 'package:flutter_foodapp/scr/screens/login.dart';
 import 'package:flutter_foodapp/scr/widgets/custom_text.dart';
@@ -17,7 +17,7 @@ class _RegisterState extends State<Register> {
   final _key = GlobalKey<ScaffoldState>();
   @override
   Widget build(BuildContext context) {
-    final authProvider = Provider.of<AuthProvider>(context);
+    final authProvider = Provider.of<UserProvider>(context);
     return Scaffold(
         key: _key,
         backgroundColor: white,
