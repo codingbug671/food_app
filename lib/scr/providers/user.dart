@@ -1,4 +1,3 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_foodapp/scr/helpers/user.dart';
@@ -6,7 +5,7 @@ import 'package:flutter_foodapp/scr/models/user.dart';
 
 enum Status { Uninitialized, Unauthenticated, Authenticating, Authenticated }
 
-class AuthProvider with ChangeNotifier {
+class UserProvider with ChangeNotifier {
   FirebaseAuth _auth;
   FirebaseUser _user;
   Status _status = Status.Uninitialized;
@@ -23,7 +22,7 @@ class AuthProvider with ChangeNotifier {
   TextEditingController email = TextEditingController();
   TextEditingController username = TextEditingController();
   TextEditingController password = TextEditingController();
-  AuthProvider.initalize() : _auth = FirebaseAuth.instance {
+  UserProvider.initalize() : _auth = FirebaseAuth.instance {
     _auth.onAuthStateChanged.listen(_onStateChanged);
   }
 
@@ -38,6 +37,7 @@ class AuthProvider with ChangeNotifier {
       _status = Status.Unauthenticated;
       notifyListeners();
       print("Error: " + e.toString());
+      return false;
     }
   }
 
@@ -53,6 +53,8 @@ class AuthProvider with ChangeNotifier {
           "name": username.text,
           "email": email.text,
           "id": user.user.uid,
+          "likedFood": [],
+          "likedRestaurants": [],
         };
 
         _userServices.createUser(values);
@@ -79,7 +81,7 @@ class AuthProvider with ChangeNotifier {
   }
 
   Future<void> _onStateChanged(FirebaseUser firebaseUser) async {
-    if (user == null) {
+    if (firebaseUser == null) {
       _status = Status.Unauthenticated;
     } else {
       _user = firebaseUser;

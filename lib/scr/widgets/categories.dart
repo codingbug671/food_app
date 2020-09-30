@@ -1,55 +1,75 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_foodapp/scr/helpers/common.dart';
 import 'package:flutter_foodapp/scr/models/category.dart';
+
 import 'package:flutter_foodapp/scr/widgets/custom_text.dart';
+import 'package:flutter_foodapp/scr/widgets/loading.dart';
+import 'package:transparent_image/transparent_image.dart';
 
-List<Category> categoriesList = [
-  Category(name: "Salad", image: "salad.png"),
-  Category(name: "Steak", image: "steak.png"),
-  Category(name: "Fast food", image: "sandwich.png"),
-  Category(name: "Desserts", image: "ice-cream.png"),
-  Category(name: "Seafood", image: "fish.png"),
-  Category(name: "Beer", image: "pint.png"),
-];
+class CategoryWidget extends StatelessWidget {
+  final CategoryModel category;
 
-class Categories extends StatelessWidget {
+  const CategoryWidget({Key key, this.category}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
-    return Container(
-      height: 110,
-      child: ListView.builder(
-          scrollDirection: Axis.horizontal,
-          itemCount: categoriesList.length,
-          itemBuilder: (context, index) {
-            return Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Column(
-                children: [
-                  Container(
-                    decoration: BoxDecoration(color: white, boxShadow: [
-                      BoxShadow(
-                        color: Colors.red[50],
-                        offset: Offset(4, 6),
-                        blurRadius: 20,
-                      )
-                    ]),
-                    child: Padding(
-                      padding: const EdgeInsets.all(4.0),
-                      child: Image.asset(
-                          "images/${categoriesList[index].image}",
-                          width: 50,
-                          height: 60),
-                    ),
-                  ),
-                  SizedBox(height: 5),
-                  CustomText(
-                      text: "${categoriesList[index].name}",
-                      size: 14,
-                      color: black)
-                ],
-              ),
-            );
-          }),
+    return Padding(
+      padding: const EdgeInsets.all(6),
+      child: Stack(
+        children: [
+          Container(
+            width: 140,
+            height: 160,
+            child: ClipRRect(
+                borderRadius: BorderRadius.circular(30),
+                child: Stack(
+                  children: [
+                    Positioned.fill(
+                        child: Align(
+                      alignment: Alignment.center,
+                      child: Loading(),
+                    )),
+                    Center(
+                        child: FadeInImage.memoryNetwork(
+                            placeholder: kTransparentImage,
+                            image: category.image))
+                  ],
+                )),
+          ),
+          Container(
+            width: 140,
+            height: 100,
+            decoration: BoxDecoration(
+                borderRadius: BorderRadius.only(
+                  bottomLeft: Radius.circular(30),
+                  bottomRight: Radius.circular(30),
+                ),
+                gradient: LinearGradient(
+                  begin: Alignment.bottomCenter,
+                  end: Alignment.topCenter,
+                  colors: [
+                    Colors.black.withOpacity(0.6),
+                    Colors.black.withOpacity(0.6),
+                    Colors.black.withOpacity(0.6),
+                    Colors.black.withOpacity(0.4),
+                    Colors.black.withOpacity(0.1),
+                    Colors.black.withOpacity(0.05),
+                    Colors.black.withOpacity(0.025),
+                  ],
+                )),
+          ),
+          Positioned.fill(
+              child: Align(
+            alignment: Alignment.bottomCenter,
+            child: CustomText(
+              text: category.name,
+              color: white,
+              size: 26,
+              weight: FontWeight.w300,
+            ),
+          ))
+        ],
+      ),
     );
   }
 }

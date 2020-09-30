@@ -1,17 +1,22 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_foodapp/scr/providers/auth.dart';
+import 'package:flutter_foodapp/scr/providers/category.dart';
+import 'package:flutter_foodapp/scr/providers/product.dart';
+import 'package:flutter_foodapp/scr/providers/restaurant.dart';
+import 'package:flutter_foodapp/scr/providers/user.dart';
 import 'package:flutter_foodapp/scr/screens/home.dart';
 
 import 'package:flutter_foodapp/scr/screens/login.dart';
 import 'package:flutter_foodapp/scr/widgets/loading.dart';
 import 'package:provider/provider.dart';
-import 'package:provider/src/change_notifier_provider.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
   runApp(MultiProvider(
       providers: [
-        ChangeNotifierProvider.value(value: AuthProvider.initalize()),
+        ChangeNotifierProvider.value(value: UserProvider.initalize()),
+        ChangeNotifierProvider.value(value: CategoryProvider.initalize()),
+        ChangeNotifierProvider.value(value: RestaurantProvider.initalize()),
+        ChangeNotifierProvider.value(value: ProductProvider.initalize()),
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
@@ -27,7 +32,7 @@ void main() {
 class ScreenController extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    final auth = Provider.of<AuthProvider>(context);
+    final auth = Provider.of<UserProvider>(context);
     switch (auth.status) {
       case Status.Uninitialized:
         return Loading();
