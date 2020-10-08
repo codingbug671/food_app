@@ -1,7 +1,12 @@
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_foodapp/scr/helpers/order.dart';
 import 'package:flutter_foodapp/scr/helpers/user.dart';
+import 'package:flutter_foodapp/scr/models/order.dart';
+import 'package:flutter_foodapp/scr/models/products.dart';
 import 'package:flutter_foodapp/scr/models/user.dart';
+import 'package:uuid/uuid.dart';
 
 enum Status { Uninitialized, Unauthenticated, Authenticating, Authenticated }
 
@@ -11,6 +16,9 @@ class UserProvider with ChangeNotifier {
   Status _status = Status.Uninitialized;
   UserServices _userServices = UserServices();
   UserModel _userModel;
+  OrderServices _orderServices = OrderServices();
+
+  List<OrderModel> orders = [];
 
   //getters
 
@@ -41,6 +49,11 @@ class UserProvider with ChangeNotifier {
     }
   }
 
+  getOrders() async {
+    orders = await _orderServices.getUserOrders(userId: _user.uid);
+    notifyListeners();
+  }
+
   Future<bool> signUp() async {
     try {
       _status = Status.Authenticating;
@@ -68,6 +81,49 @@ class UserProvider with ChangeNotifier {
     }
   }
 
+  Future<bool> addToCart({ProductModel product, int quantity}) async {
+    try {
+      var uuid = Uuid();
+      String cartItemId = uuid.v4();
+      List cart = _userModel.cart;
+      bool itemExists = false;
+      Map cartItem = {
+        "id": cartItemId,
+        "name": product.name,
+        "image": product.image,
+        "productId": product.id,
+        "price": product.price,
+        "quantity": quantity
+      };
+
+      //for (Map item in cart) {
+      //  if (item["productId"] == cartItem["productId"]) {
+      //    item["quantity"] = item["quantity"] + quantity;
+
+      //    itemExists = true;
+      //    break;
+      //  }
+      //}
+      //if (!itemExists) {
+      _userServices.addToCart(userId: _userModel.id, cartItem: cartItem);
+      //}
+
+      return true;
+    } catch (e) {
+      return false;
+    }
+  }
+
+  Future<bool> removeFromCart({Map cartItem}) async {
+    try {
+      _userServices.removeFromCart(userId: _userModel.id, cartItem: cartItem);
+
+      return true;
+    } catch (e) {
+      return false;
+    }
+  }
+
   Future<void> signOut() {
     _auth.signOut();
     _status = Status.Unauthenticated;
@@ -89,6 +145,11 @@ class UserProvider with ChangeNotifier {
 
       _userModel = await _userServices.getUserbyId(firebaseUser.uid);
     }
+    notifyListeners();
+  }
+
+  Future<void> reloadUserModel() async {
+    _userModel = await _userServices.getUserbyId(user.uid);
     notifyListeners();
   }
 }

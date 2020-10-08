@@ -1,5 +1,3 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
-
 class CartItemModel {
   static const ID = "id";
   static const NAME = "name";
@@ -7,16 +5,13 @@ class CartItemModel {
   static const PRODUCT_ID = "productId";
   static const QUANTITY = "quantity";
   static const PRICE = "price";
-  static const RESTAURANT_ID = "restaurantId";
-  static const TOTAL_RESTAURANT_SALES = "totalRestaurantSale";
 
   String _id;
   String _name;
   String _image;
   String _productId;
-  String _restaurantId;
-  int _totalRestaurantSale;
   int _quantity;
+
   int _price;
 
   //  getters
@@ -28,22 +23,24 @@ class CartItemModel {
 
   String get productId => _productId;
 
-  String get restaurantId => _restaurantId;
+  int get quantity => _quantity;
 
   int get price => _price;
 
-  int get totalRestaurantSale => _totalRestaurantSale;
-
-  int get quantity => _quantity;
-
-  CartItemModel.fromSnapshot(DocumentSnapshot snapshot) {
-    _id = snapshot.data[ID];
-    _name = snapshot.data[NAME];
-    _image = snapshot.data[IMAGE];
-    _productId = snapshot.data[PRODUCT_ID];
-    _price = snapshot.data[PRICE];
-    _quantity = snapshot.data[QUANTITY];
-    _totalRestaurantSale = snapshot.data[TOTAL_RESTAURANT_SALES];
-    _restaurantId = snapshot.data[RESTAURANT_ID];
+  CartItemModel.fromMap(Map data) {
+    _id = data[ID];
+    _name = data[NAME];
+    _image = data[IMAGE];
+    _productId = data[PRODUCT_ID];
+    _price = data[PRICE];
+    _quantity = data[QUANTITY];
   }
+  Map toMap() => {
+        ID: _id,
+        NAME: _name,
+        IMAGE: _image,
+        PRODUCT_ID: _productId,
+        PRICE: _price,
+        QUANTITY: _quantity,
+      };
 }
