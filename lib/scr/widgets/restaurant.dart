@@ -22,9 +22,8 @@ class RestaurantWidget extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.all(8.0),
             child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              mainAxisAlignment: MainAxisAlignment.end,
               children: <Widget>[
-                SmallButton(Icons.favorite),
                 Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: Container(

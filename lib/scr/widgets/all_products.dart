@@ -10,7 +10,7 @@ import 'package:flutter_foodapp/scr/widgets/loading.dart';
 import 'package:provider/provider.dart';
 import 'package:transparent_image/transparent_image.dart';
 
-class Featured extends StatelessWidget {
+class Products extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final productProvider = Provider.of<ProductProvider>(context);
@@ -74,18 +74,6 @@ class Featured extends StatelessWidget {
                                     "id null",
                               ),
                             ),
-                            Padding(
-                              padding: EdgeInsets.all(8),
-                              child: GestureDetector(
-                                onTap: () {
-//                                  setState(() {
-//                                    productProvider.products[index].liked = !productProvider.products[index].liked;
-//                                  });
-//                                  productProvider.likeDislikeProduct(userId: user.userModel.id, product: productProvider.products[index], liked: productProvider.products[index].liked);
-                                },
-                                child: Container(),
-                              ),
-                            )
                           ],
                         ),
                         Row(
@@ -118,6 +106,11 @@ class Featured extends StatelessWidget {
                                 Icon(
                                   Icons.star,
                                   color: red,
+                                  size: 16,
+                                ),
+                                Icon(
+                                  Icons.star,
+                                  color: grey,
                                   size: 16,
                                 ),
                                 Icon(

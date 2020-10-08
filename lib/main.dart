@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_foodapp/scr/providers/app.dart';
 import 'package:flutter_foodapp/scr/providers/category.dart';
 import 'package:flutter_foodapp/scr/providers/product.dart';
 import 'package:flutter_foodapp/scr/providers/restaurant.dart';
@@ -17,6 +18,7 @@ void main() {
         ChangeNotifierProvider.value(value: CategoryProvider.initalize()),
         ChangeNotifierProvider.value(value: RestaurantProvider.initalize()),
         ChangeNotifierProvider.value(value: ProductProvider.initalize()),
+        ChangeNotifierProvider.value(value: AppProvider()),
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
