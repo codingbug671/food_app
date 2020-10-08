@@ -66,8 +66,7 @@ class UserProvider with ChangeNotifier {
           "name": username.text,
           "email": email.text,
           "id": user.user.uid,
-          "likedFood": [],
-          "likedRestaurants": [],
+          "cart": [],
         };
 
         _userServices.createUser(values);
