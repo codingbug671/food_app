@@ -86,6 +86,7 @@ class _RegisterState extends State<Register> {
                             padding: const EdgeInsets.only(left: 10.0),
                             child: TextFormField(
                               controller: authProvider.password,
+                              obscureText: true,
                               decoration: InputDecoration(
                                 border: InputBorder.none,
                                 hintText: "Password",

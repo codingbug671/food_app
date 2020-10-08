@@ -85,8 +85,7 @@ class UserProvider with ChangeNotifier {
     try {
       var uuid = Uuid();
       String cartItemId = uuid.v4();
-      List cart = _userModel.cart;
-      bool itemExists = false;
+
       Map cartItem = {
         "id": cartItemId,
         "name": product.name,
@@ -96,17 +95,7 @@ class UserProvider with ChangeNotifier {
         "quantity": quantity
       };
 
-      //for (Map item in cart) {
-      //  if (item["productId"] == cartItem["productId"]) {
-      //    item["quantity"] = item["quantity"] + quantity;
-
-      //    itemExists = true;
-      //    break;
-      //  }
-      //}
-      //if (!itemExists) {
       _userServices.addToCart(userId: _userModel.id, cartItem: cartItem);
-      //}
 
       return true;
     } catch (e) {
